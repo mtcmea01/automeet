@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  my-app:
+    image: my-app
+    ports:
+      - "8080:8080"
+    networks:
+      my-network:
+        ipv4_address: 172.28.1.4
+
+networks:
+  my-network:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.28.0.0/16
+
+
