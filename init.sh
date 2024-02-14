@@ -38,7 +38,9 @@ cp Dockerfile  docker-compose.yml  sample.nginx.conf jitsi-meet/ -v
 cd jitsi-meet
 sed -i 's/127.0.0.1/0.0.0.0/g' webpack.config.js
 sed -i "s/h1.velaconference.business/$myhostname/g" Dockerfile 
+#sed -i 's/getDevServerConfig(),/getDevServerConfig(), disableHostCheck: true,/g' webpack.config.js
 #sed -i "s/h1.velaconference.business/$myhostname/g" sample.nginx.conf
+sed -i "s/hot: true,/hot: true, allowedHosts: \"$myhostname\",/g" webpack.config.js
 docker build -t my-app .
 
 # Stop running containers and services from docker-compose, if any
@@ -46,3 +48,10 @@ docker-compose down
 
 # Start the services defined in the docker-compose.yml file in detached mode
 docker-compose up -d
+
+
+#SSL Setup
+cp ../ssl.sh . -v
+sed -i "s/your_domain/$myhostname/g" ssl.sh
+sed -i "s/YOUR_PORT/8080/g" ssl.sh
+sh ssl.sh
