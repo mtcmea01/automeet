@@ -8,7 +8,7 @@ myhostname="t3.velaconference.business" #edit this manually and enter your URL
 myip=`curl -4 ifconfig.me`
 #rm -rf /automeet
 cp -r ./ /automeet
-cd automeet
+cd /automeet
 #Starting script
 hostnamectl set-hostname $myhostname
 apt update
